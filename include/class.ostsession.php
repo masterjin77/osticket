@@ -206,10 +206,7 @@ extends SessionBackend {
         if (!isset($this->data))
             $this->data = new SessionData(['session_id' => $id]);
 
-        catch (DoesNotExist $e) {
-            $this->data = new SessionData(['session_id' => $id]);
-            $this->data->session_data = "";
-        }        
+        $this->data->session_data = $data;
         
         $this->data->session_expire =
             SqlFunction::NOW()->plus(SqlInterval::SECOND($ttl));
